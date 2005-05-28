@@ -120,6 +120,7 @@ fi
 %defattr(644,root,root,755)
 %doc CHANGES apache2/README LICENSE.txt
 %attr(755,root,root) %{_libdir}/apache/mod_%{pname}.so
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/httpd.conf/*.conf
 
 %files -n python-%{pname}
 %doc LICENSE.txt
