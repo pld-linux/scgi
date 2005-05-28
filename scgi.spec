@@ -88,9 +88,9 @@ env CFLAGS="%{rpmcflags}" python setup.py build
 rm -rf $RPM_BUILD_ROOT
 # create directories
 install -d $RPM_BUILD_ROOT/%{_libdir}/apache
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf
 install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT/%{_libdir}/apache
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/60_mod_scgi.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
 
 python -- setup.py install \
         --root=$RPM_BUILD_ROOT \
@@ -120,7 +120,7 @@ fi
 %defattr(644,root,root,755)
 %doc CHANGES apache2/README LICENSE.txt
 %attr(755,root,root) %{_libdir}/apache/mod_%{pname}.so
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/httpd.conf/*.conf
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/httpd/httpd.conf/*.conf
 
 %files -n python-%{pname}
 %doc LICENSE.txt
