@@ -1,0 +1,12 @@
+diff -Naur scgi-1.2.orig/apache2/mod_scgi.c scgi-1.2/apache2/mod_scgi.c
+--- scgi-1.2.orig/apache2/mod_scgi.c	2005-05-28 16:33:03.000000000 +0200
++++ scgi-1.2/apache2/mod_scgi.c	2005-05-28 16:33:08.000000000 +0200
+@@ -308,7 +308,7 @@
+     }
+ 
+     *sock = NULL;
+-    rv = apr_socket_create(sock, AF_INET, SOCK_STREAM, r->pool);
++    rv = apr_socket_create(sock, AF_INET, SOCK_STREAM, APR_PROTO_TCP, r->pool);
+     if (rv) {
+         log_err(APLOG_MARK, r, rv, "apr_socket_create() error");
+         return rv;
