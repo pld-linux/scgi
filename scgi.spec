@@ -3,7 +3,7 @@
 #   - there is also support for apache1 in scgi-1.2.tar.gz
 #   - there is cgi2scgi.c (CGI script that forwards requests to a SCGI server)
 #     which may be compiled and instaled in cgi-bin
-#   - right now I don't know if all this works (so tests are needed)
+#   - python-scgi not tested; apache-mod_scgi works for me
 #
 #
 
@@ -14,7 +14,7 @@ Summary:	SCGI is a replacement for the Common Gateway Interface (CGI)
 Summary(pl):	SCGI jest zastêpnikiem dla Common Gateway Interface (CGI)
 Name:		apache-mod_scgi
 Version:	1.2
-Release:	0.9
+Release:	1
 Epoch:		0
 License:	CNRI OPEN SOURCE LICENSE
 Group:		Networking/Daemons
