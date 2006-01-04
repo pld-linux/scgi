@@ -1,13 +1,10 @@
-#
 # TODO:
 #   - there is also support for apache1 in scgi-1.2.tar.gz
 #   - there is cgi2scgi.c (CGI script that forwards requests to a SCGI server)
 #     which may be compiled and instaled in cgi-bin
 #   - python-scgi not tested; apache-mod_scgi works for me
 #
-
 %define		apxs	/usr/sbin/apxs
-
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl):	SCGI - zastêpnik dla Common Gateway Interface (CGI)
 Name:		scgi
@@ -21,9 +18,10 @@ Source1:	apache-mod_%{name}.conf
 # Source0-md5:	577f6db7ab95e602378293756d368112
 Patch0:		%{name}-apache2.patch
 URL:		http://www.mems-exchange.org/software/scgi/
-BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	%{apxs}
-BuildRequires:	apache-devel
+BuildRequires:	apache-devel >= 2.0
+BuildRequires:	python-devel >= 1:2.3
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,6 +40,7 @@ prostszym do zaimplementowania.
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl):	SCGI - zastêpnik dla Common Gateway Interface (CGI)
 Group:		Networking/Daemons
+Requires:	apache(modules-api) = %apache_modules_api
 %pyrequires_eq  python-modules
 
 %description -n apache-mod_scgi
@@ -93,7 +92,6 @@ protoko³u SCGI.
 cd apache2
 %{apxs} -c mod_scgi.c
 cd ..
-
 env CFLAGS="%{rpmcflags}" python setup.py build
 
 %install
@@ -105,8 +103,8 @@ install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT/%{_libdir}/apache
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
 
 python -- setup.py install \
-        --root=$RPM_BUILD_ROOT \
-        --optimize=2
+	--root=$RPM_BUILD_ROOT \
+	--optimize=2
 
 find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py | xargs rm -f
 install -d $RPM_BUILD_ROOT%{py_sitescriptdir}/%{name}
@@ -115,16 +113,12 @@ find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py[co] -exec mv \{\} $RPM_BUILD_ROOT%
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-if [ -f /var/lock/subsys/httpd ]; then
-	/etc/rc.d/init.d/httpd restart 1>&2
-fi
+%post -n apache-mod_scgi
+%service httpd restart
 
-%preun
+%preun -n apache-mod_scgi
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd restart 1>&2
-	fi
+	%service httpd restart
 fi
 
 %files -n apache-mod_scgi
