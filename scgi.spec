@@ -128,7 +128,7 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/httpd.conf/*.conf
 
 %files -n python-%{name}
-%doc LICENSE.txt
 %defattr(644,root,root,755)
+%doc LICENSE.txt
 %{py_sitescriptdir}/%{name}
 %{py_sitedir}/%{name}
