@@ -99,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}/apache
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf
 
-install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT/%{_libdir}/apache
+install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
 
 python -- setup.py install \
