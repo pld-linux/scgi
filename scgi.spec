@@ -6,7 +6,7 @@
 #
 %define		apxs	/usr/sbin/apxs
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
-Summary(pl):	SCGI - zastêpnik dla Common Gateway Interface (CGI)
+Summary(pl.UTF-8):   SCGI - zastÄ™pnik dla Common Gateway Interface (CGI)
 Name:		scgi
 Version:	1.2
 Release:	1
@@ -30,15 +30,15 @@ The SCGI protocol is a replacement for the Common Gateway Interface
 HTTP servers. It is similar to FastCGI but is designed to be easier to
 implement.
 
-%description -l pl
-Protokó³ SCGI mo¿e byæ u¿ywany zamiast protoko³u Common Gateway
-Interface (CGI). Jest standardem komunikacji miedzy aplikacj± a
-serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byæ
+%description -l pl.UTF-8
+ProtokÃ³Å‚ SCGI moÅ¼e byÄ‡ uÅ¼ywany zamiast protokoÅ‚u Common Gateway
+Interface (CGI). Jest standardem komunikacji miedzy aplikacjÄ… a
+serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byÄ‡
 prostszym do zaimplementowania.
 
 %package -n apache-mod_scgi
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
-Summary(pl):	SCGI - zastêpnik dla Common Gateway Interface (CGI)
+Summary(pl.UTF-8):   SCGI - zastÄ™pnik dla Common Gateway Interface (CGI)
 Group:		Networking/Daemons
 Requires:	apache(modules-api) = %apache_modules_api
 %pyrequires_eq  python-modules
@@ -52,18 +52,18 @@ implement.
 In this package you can find an Apache module named mod_scgi that
 implements the client side of the protocol.
 
-%description -n apache-mod_scgi -l pl
-Protokó³ SCGI mo¿e byæ u¿ywany zamiast protoko³u Common Gateway
-Interface (CGI). Jest standardem komunikacji miedzy aplikacj± a
-serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byæ
+%description -n apache-mod_scgi -l pl.UTF-8
+ProtokÃ³Å‚ SCGI moÅ¼e byÄ‡ uÅ¼ywany zamiast protokoÅ‚u Common Gateway
+Interface (CGI). Jest standardem komunikacji miedzy aplikacjÄ… a
+serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byÄ‡
 prostszym do zaimplementowania.
 
-W tym pakiecie mo¿na znale¼æ modu³ dla serwera Apache nazwany
-mod_scgi, który implementuje klienta protoko³u SCGI.
+W tym pakiecie moÅ¼na znaleÅºÄ‡ moduÅ‚ dla serwera Apache nazwany
+mod_scgi, ktÃ³ry implementuje klienta protokoÅ‚u SCGI.
 
 %package -n python-scgi
 Summary:	A Python package that implements the server side of the SCGI protocol
-Summary(pl):	Modu³ Pythona implementuj±cy serwer protoko³u SCGI
+Summary(pl.UTF-8):   ModuÅ‚ Pythona implementujÄ…cy serwer protokoÅ‚u SCGI
 Group:		Libraries/Python
 
 %description -n python-scgi
@@ -75,14 +75,14 @@ implement.
 In this package you can find a Python package named scgi that
 implements the server side of the protocol.
 
-%description -n python-scgi -l pl
-Protokó³ SCGI mo¿e byæ u¿ywany zamiast protoko³u Common Gateway
-Interface (CGI). Jest standardem komunikacji miedzy aplikacj± a
-serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byæ
+%description -n python-scgi -l pl.UTF-8
+ProtokÃ³Å‚ SCGI moÅ¼e byÄ‡ uÅ¼ywany zamiast protokoÅ‚u Common Gateway
+Interface (CGI). Jest standardem komunikacji miedzy aplikacjÄ… a
+serwerem HTTP. Jest podobny do FastCGI ale zaprojektowany tak, by byÄ‡
 prostszym do zaimplementowania.
 
-W tym pakiecie mo¿na znale¼æ modu³ Pythona implementuj±cy serwer
-protoko³u SCGI.
+W tym pakiecie moÅ¼na znaleÅºÄ‡ moduÅ‚ Pythona implementujÄ…cy serwer
+protokoÅ‚u SCGI.
 
 %prep
 %setup -q
