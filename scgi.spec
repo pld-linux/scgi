@@ -6,7 +6,7 @@
 #
 %define		apxs	/usr/sbin/apxs
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
-Summary(pl.UTF-8):   SCGI - zastępnik dla Common Gateway Interface (CGI)
+Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Name:		scgi
 Version:	1.2
 Release:	1
@@ -38,7 +38,7 @@ prostszym do zaimplementowania.
 
 %package -n apache-mod_scgi
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
-Summary(pl.UTF-8):   SCGI - zastępnik dla Common Gateway Interface (CGI)
+Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Group:		Networking/Daemons
 Requires:	apache(modules-api) = %apache_modules_api
 %pyrequires_eq  python-modules
@@ -63,7 +63,7 @@ mod_scgi, który implementuje klienta protokołu SCGI.
 
 %package -n python-scgi
 Summary:	A Python package that implements the server side of the SCGI protocol
-Summary(pl.UTF-8):   Moduł Pythona implementujący serwer protokołu SCGI
+Summary(pl.UTF-8):	Moduł Pythona implementujący serwer protokołu SCGI
 Group:		Libraries/Python
 
 %description -n python-scgi
