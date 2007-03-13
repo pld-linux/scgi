@@ -14,8 +14,8 @@ Epoch:		0
 License:	CNRI OPEN SOURCE LICENSE
 Group:		Networking/Daemons
 Source0:	http://www.mems-exchange.org/software/scgi/%{name}-%{version}.tar.gz
-Source1:	apache-mod_%{name}.conf
 # Source0-md5:	577f6db7ab95e602378293756d368112
+Source1:	apache-mod_%{name}.conf
 Patch0:		%{name}-apache2.patch
 URL:		http://www.mems-exchange.org/software/scgi/
 BuildRequires:	%{apxs}
