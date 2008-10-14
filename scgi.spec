@@ -4,24 +4,28 @@
 #     which may be compiled and instaled in cgi-bin
 #   - python-scgi not tested; apache-mod_scgi works for me
 #
+%bcond_without	apache		# don't build the apache module
+#
 %define		apxs	/usr/sbin/apxs
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Name:		scgi
-Version:	1.2
+Version:	1.13
 Release:	1
 Epoch:		0
 License:	CNRI OPEN SOURCE LICENSE
 Group:		Networking/Daemons
-Source0:	http://www.mems-exchange.org/software/scgi/%{name}-%{version}.tar.gz
-# Source0-md5:	577f6db7ab95e602378293756d368112
+Source0:	http://python.ca/scgi/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	5cc79e59130ae9efc20388cc8ce906ba
 Source1:	apache-mod_%{name}.conf
-Patch0:		%{name}-apache2.patch
 URL:		http://www.mems-exchange.org/software/scgi/
+%if %{with apache}
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
-BuildRequires:	python-devel >= 1:2.3
+%endif
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
+%pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -86,29 +90,30 @@ protokołu SCGI.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
+%if %{with apache}
 cd apache2
 %{apxs} -c mod_scgi.c
 cd ..
+%endif
 env CFLAGS="%{rpmcflags}" python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%if %{with apache}
 install -d $RPM_BUILD_ROOT%{_libdir}/apache
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf
 
 install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
+%endif
 
 python -- setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
-find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py | xargs rm -f
-install -d $RPM_BUILD_ROOT%{py_sitescriptdir}/%{name}
-find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py[co] -exec mv \{\} $RPM_BUILD_ROOT%{py_sitescriptdir}/%{name} \;
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -121,14 +126,15 @@ if [ "$1" = "0" ]; then
 	%service httpd restart
 fi
 
+%if %{with apache}
 %files -n apache-mod_scgi
 %defattr(644,root,root,755)
-%doc CHANGES apache2/README LICENSE.txt
+%doc CHANGES.txt apache2/README.txt LICENSE.txt
 %attr(755,root,root) %{_libdir}/apache/mod_%{name}.so
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/httpd.conf/*.conf
+%endif
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
 %doc LICENSE.txt
-%{py_sitescriptdir}/%{name}
-%{py_sitedir}/%{name}
+%{py_sitedir}/*
