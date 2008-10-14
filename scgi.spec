@@ -4,6 +4,7 @@
 #     which may be compiled and instaled in cgi-bin
 #   - python-scgi not tested; apache-mod_scgi works for me
 #
+# Conditional build:
 %bcond_without	apache		# don't build the apache module
 #
 %define		apxs	/usr/sbin/apxs
@@ -97,7 +98,7 @@ cd apache2
 %{apxs} -c mod_scgi.c
 cd ..
 %endif
-env CFLAGS="%{rpmcflags}" python setup.py build
+env CFLAGS="%{rpmcflags}" %{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -109,7 +110,7 @@ install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
 %endif
 
-python -- setup.py install \
+%{__python} -- setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
