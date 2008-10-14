@@ -14,7 +14,7 @@ Name:		scgi
 Version:	1.13
 Release:	1
 Epoch:		0
-License:	CNRI OPEN SOURCE LICENSE
+License:	CNRI Open Source License/MIT
 Group:		Networking/Daemons
 Source0:	http://python.ca/scgi/releases/%{name}-%{version}.tar.gz
 # Source0-md5:	5cc79e59130ae9efc20388cc8ce906ba
@@ -24,9 +24,9 @@ URL:		http://www.mems-exchange.org/software/scgi/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
 %endif
+BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
-%pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,6 +70,7 @@ mod_scgi, który implementuje klienta protokołu SCGI.
 Summary:	A Python package that implements the server side of the SCGI protocol
 Summary(pl.UTF-8):	Moduł Pythona implementujący serwer protokołu SCGI
 Group:		Libraries/Python
+%pyrequires_eq	python-modules
 
 %description -n python-scgi
 The SCGI protocol is a replacement for the Common Gateway Interface
@@ -110,7 +111,7 @@ install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
 %endif
 
-%{__python} -- setup.py install \
+%{__python} setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
@@ -130,12 +131,15 @@ fi
 %if %{with apache}
 %files -n apache-mod_scgi
 %defattr(644,root,root,755)
-%doc CHANGES.txt apache2/README.txt LICENSE.txt
+%doc CHANGES.txt apache2/README.txt LICENSE.txt doc/LICENSE_110.txt
 %attr(755,root,root) %{_libdir}/apache/mod_%{name}.so
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/httpd.conf/*.conf
 %endif
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%doc LICENSE.txt
-%{py_sitedir}/*
+%doc LICENSE.txt doc/LICENSE_110.txt
+%dir %{py_sitedir}/scgi
+%attr(755,root,root) %{py_sitedir}/scgi/passfd.so
+%{py_sitedir}/scgi/*.py[co]
+%{py_sitedir}/scgi-*.egg-info
