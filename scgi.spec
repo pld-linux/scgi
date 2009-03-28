@@ -12,7 +12,7 @@ Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Name:		scgi
 Version:	1.13
-Release:	1
+Release:	2
 Epoch:		0
 License:	CNRI Open Source License/MIT
 Group:		Networking/Daemons
@@ -105,10 +105,10 @@ env CFLAGS="%{rpmcflags}" %{__python} setup.py build
 rm -rf $RPM_BUILD_ROOT
 %if %{with apache}
 install -d $RPM_BUILD_ROOT%{_libdir}/apache
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d
 
 install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/httpd.conf/60_mod_scgi.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/60_mod_scgi.conf
 %endif
 
 %{__python} setup.py install \
@@ -133,7 +133,7 @@ fi
 %defattr(644,root,root,755)
 %doc CHANGES.txt apache2/README.txt LICENSE.txt doc/LICENSE_110.txt
 %attr(755,root,root) %{_libdir}/apache/mod_%{name}.so
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/httpd.conf/*.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/conf.d/*.conf
 %endif
 
 %files -n python-%{name}
