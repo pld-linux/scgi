@@ -29,6 +29,9 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)/conf.d
+
 %description
 The SCGI protocol is a replacement for the Common Gateway Interface
 (CGI) protocol. It is a standard for applications to interface with
@@ -104,11 +107,9 @@ env CFLAGS="%{rpmcflags}" %{__python} setup.py build
 %install
 rm -rf $RPM_BUILD_ROOT
 %if %{with apache}
-install -d $RPM_BUILD_ROOT%{_libdir}/apache
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d
-
-install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_libdir}/apache
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/60_mod_scgi.conf
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}}
+install apache2/.libs/mod_scgi.so $RPM_BUILD_ROOT%{_pkglibdir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/60_mod_scgi.conf
 %endif
 
 %{__python} setup.py install \
@@ -132,8 +133,8 @@ fi
 %files -n apache-mod_scgi
 %defattr(644,root,root,755)
 %doc CHANGES.txt apache2/README.txt LICENSE.txt doc/LICENSE_110.txt
-%attr(755,root,root) %{_libdir}/apache/mod_%{name}.so
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/conf.d/*.conf
+%attr(755,root,root) %{_pkglibdir}/mod_%{name}.so
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
 %endif
 
 %files -n python-%{name}
