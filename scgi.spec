@@ -12,7 +12,7 @@ Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Name:		scgi
 Version:	1.13
-Release:	2
+Release:	3
 Epoch:		0
 License:	CNRI Open Source License/MIT
 Group:		Networking/Daemons
