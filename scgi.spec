@@ -137,7 +137,7 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
 %endif
 
-%files -n python-%{name}
+%files -n python-scgi
 %defattr(644,root,root,755)
 %doc LICENSE.txt doc/LICENSE_110.txt
 %dir %{py_sitedir}/scgi
