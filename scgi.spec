@@ -11,15 +11,14 @@
 Summary:	SCGI - a replacement for the Common Gateway Interface (CGI)
 Summary(pl.UTF-8):	SCGI - zastępnik dla Common Gateway Interface (CGI)
 Name:		scgi
-Version:	1.13
-Release:	3
-Epoch:		0
+Version:	1.14
+Release:	1
 License:	CNRI Open Source License/MIT
 Group:		Networking/Daemons
 Source0:	http://python.ca/scgi/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	5cc79e59130ae9efc20388cc8ce906ba
+# Source0-md5:	73d942a9ecdf4f20c8234e72ea82c7ee
 Source1:	apache-mod_%{name}.conf
-URL:		http://www.mems-exchange.org/software/scgi/
+URL:		http://python.ca/scgi/
 %if %{with apache}
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
